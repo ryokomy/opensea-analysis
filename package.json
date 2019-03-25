@@ -1,0 +1,18 @@
+{
+  "name": "opensea-analysis",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "ts-node ./src/main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ryokomy",
+  "license": "ISC",
+  "dependencies": {
+    "@types/web3": "^1.0.18",
+    "ts-node": "^8.0.3",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.3.4000",
+    "web3": "^1.0.0-beta.37"
+  }
+}
