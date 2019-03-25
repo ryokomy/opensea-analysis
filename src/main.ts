@@ -1,14 +1,10 @@
-import { getWeb3Instance, NetworkType } from './Web3'
-import { address, abi } from './config/OpenSea.contract'
+import { EventType, getPastEvents, parseEvents } from './services/events.service'
 
 const main = async () => {
     console.log('start main')
-    // Instantiates a web3
-    const web3 = getWeb3Instance(NetworkType.main)
 
-    // MonsterToken
-    const OpenSea = new web3.eth.Contract(abi, address)
-
+    const events = await getPastEvents(EventType.OrdersMatched)
+    const parsedEvents = await parseEvents(events, EventType.OrdersMatched)
 
     console.log('finish main')
 }
