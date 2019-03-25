@@ -1,6 +1,7 @@
 import { getWeb3Instance, NetworkType } from '../Web3'
 import * as OpenSeaContract from '../config/OpenSea.config'
 import { EventLog, TransactionReceipt } from 'web3/types'
+import { BlockType } from 'web3/eth/types'
 
 export enum EventType {
     OrdersMatched = 'OrdersMatched'
@@ -15,7 +16,9 @@ export interface IOrderMatched {
     'metadata': string // bytes32 indexed metadata
 }
 
-export const getPastEvents = async (eventType: EventType) : Promise<EventLog[]> => {
+export const getPastEvents = async (
+        fromBlock: BlockType, toBlock: BlockType, eventType: EventType
+    ) : Promise<EventLog[]> => {
     // Instantiates a web3
     const web3 = getWeb3Instance(NetworkType.main)
     // Instantiates a OpenSea contract
@@ -24,8 +27,8 @@ export const getPastEvents = async (eventType: EventType) : Promise<EventLog[]> 
     const events = await OpenSea.getPastEvents(
         eventType,
         {
-            fromBlock: 7436241, // TODO: consider more
-            toBlock: 7436241
+            fromBlock,
+            toBlock
         }
     )
 

@@ -9,6 +9,13 @@ export interface ITransfer {
     'tokenId': string
 }
 
+export interface IJsonData {
+    name: string
+    description: string
+    image: string
+    attributes: object
+}
+
 export const decodeTransferLog = async (log: Log) => {
     // Instantiates a web3
     const web3 = getWeb3Instance(NetworkType.main)
@@ -18,4 +25,14 @@ export const decodeTransferLog = async (log: Log) => {
     const topics = log.topics.slice(1)
     const TransferEvent = web3.eth.abi.decodeLog(IERC721Contract.abi_event_Transfer, data, topics)
     return TransferEvent as ITransfer
+}
+
+export const tokenURI = async (tokenAddress: string, tokenId: number) => {
+    // Instantiates a web3
+    const web3 = getWeb3Instance(NetworkType.main)
+
+    // Instantiates a OpenSea contract
+    const contract = new web3.eth.Contract(IERC721Contract.abi, tokenAddress)
+
+    return await contract.methods.tokenURI().call()
 }
