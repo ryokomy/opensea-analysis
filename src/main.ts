@@ -1,10 +1,24 @@
-import { getExchanges } from './services/myCryptoHeros.service'
+import { IExchange, getExchanges } from './services/myCryptoHeros.service'
+import { outputJson, readJson } from './services/io.service'
+import { toInteger } from 'lodash/fp'
 
 const main = async () => {
     console.log('-- start main --')
     console.log()
 
-    const exchanges = await getExchanges(7436241, 'latest')
+    // const exchanges = await getExchanges(7430000, 'latest')
+    // await outputJson(exchanges)
+
+    let exchanges = await readJson() as IExchange[]
+    exchanges = exchanges.sort((a, b) => toInteger(b.price) - toInteger(a.price))
+
+    const numberOfExchanges = exchanges.length
+    let totalPrice = 0
+    for (let exchange of exchanges) {
+        totalPrice += toInteger(exchange.price)
+    }
+    console.log(numberOfExchanges)
+    console.log(totalPrice)
 
     console.log()
     console.log('-- finish main --')
