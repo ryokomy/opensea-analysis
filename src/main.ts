@@ -1,10 +1,10 @@
-import { EventType, getPastEvents, parseEvents } from './services/events.service'
+import { getExchanges } from './services/myCryptoHeros.service'
 
 const main = async () => {
     console.log('start main')
 
-    const events = await getPastEvents(EventType.OrdersMatched)
-    const parsedEvents = await parseEvents(events, EventType.OrdersMatched)
+    const exchanges = await getExchanges()
+    console.log(exchanges)
 
     console.log('finish main')
 }
