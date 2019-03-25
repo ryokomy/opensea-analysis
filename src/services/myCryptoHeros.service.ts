@@ -1,6 +1,7 @@
 import { getWeb3Instance, NetworkType } from '../Web3'
 import { EventType, IOrderMatched, getPastEvents, getTransactionReceipt } from '../contracts/opensea.contract'
 import { decodeTransferLog } from '../contracts/erc721.contract'
+import { getBlock } from '../services/web3Util.service'
 import * as MyCryptoHerosConfig from '../config/MyCryptoHeros.config'
 
 export interface IExchange {
@@ -10,6 +11,7 @@ export interface IExchange {
     tokenId: string
     from: string
     to: string
+    date: string
 }
 
 export const getExchanges = async () => {
@@ -25,10 +27,14 @@ export const getExchanges = async () => {
             tokenAddress: '',
             tokenId: '',
             from: '',
-            to: '',        
+            to: '',
+            date: '',
         }
         exchange.transactionHash = event.transactionHash
         exchange.price = web3.utils.fromWei((event.returnValues as IOrderMatched).price)
+
+        const block = await getBlock(event.blockNumber)
+        exchange.date = (new Date(block.timestamp * 1000)).toLocaleString()
 
         const receipt = await getTransactionReceipt(event.transactionHash)
         const logs = receipt.logs
