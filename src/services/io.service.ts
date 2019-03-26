@@ -1,8 +1,8 @@
 import * as fsExtra from 'fs-extra'
 
-export const outputJson = async (obj: object) => {
+export const outputJson = async (filename: string, obj: object) => {
     try {
-      await fsExtra.outputJson(`output.json`, obj, {
+      await fsExtra.outputJson(filename, obj, {
         encoding: 'utf-8',
         spaces: '  ',
       })  
@@ -12,9 +12,9 @@ export const outputJson = async (obj: object) => {
     }
 }
 
-export const readJson = async() => {
+export const readJson = async(filename: string) => {
     try {
-        return await fsExtra.readJSON(`output.json`)
+        return await fsExtra.readJSON(filename)
     }
     catch (err) {
         throw err

@@ -73,3 +73,4 @@ export const getExchanges = async (fromBlock: BlockType, toBlock: BlockType) => 
 
     return exchanges
 }
+
