@@ -22,9 +22,11 @@ const main = async () => {
     // console.log(totalPrice)
 
 
-    // const exchanges = await getAllOpenSeaExchanges(`OpenSeaMyCryptoHeroes.json`)
+    // const exchanges = await getAllOpenSeaExchanges(`OpenSeaMyCryptoHeroes_extension.json`)
 
-    let exchanges = await readJson('OpenSeaMyCryptoHeroes_until_20190326_1820.json') as IOpenSeaExchange[]
+    let exchanges = await readJson('OpenSeaMyCryptoHeroes_hero_until_20190326_1820.json') as IOpenSeaExchange[]
+//    let exchanges = await readJson('OpenSeaMyCryptoHeroes_extension_until_20190326_1905.json') as IOpenSeaExchange[]
+//    let exchanges = await readJson('OpenSeaMyCryptoHeroes_land_until_20190326_1900.json') as IOpenSeaExchange[]
 
     await analyzeOpenSeaExchanges(exchanges)
 

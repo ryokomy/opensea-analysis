@@ -63,7 +63,7 @@ export const getOpenSeaExchanges = async (
     const apiPath = '/api/v1/events'
     const query = {
         event_type: 'successful',
-        asset_contract_address: MyCryptoHerosConfig.address,
+        asset_contract_address: MyCryptoHerosConfig.extension_address,
         offset: offset,
         limit: limit,
     }
@@ -102,14 +102,18 @@ export const analyzeOpenSeaExchanges = (exchanges: IOpenSeaExchange[]) => {
 
     const numberOfExchanges = priceSortedExchanges.length
     const highestPrice = priceSortedExchanges[0].total_price
+    const highestPrice_link = priceSortedExchanges[0].external_link
     let totalPrice: number = 0
     for(let exchange of priceSortedExchanges) {
         totalPrice += toNumber(exchange.total_price)
     }
 
+
+
     console.log('====== analysis ======')
-    console.log(`Number of Exchanges: ${numberOfExchanges}`)
-    console.log(`Highest Sold Price: ${highestPrice}`)
-    console.log(`Total Sold Price: ${totalPrice}`)
+    console.log(`- Number of Exchanges: ${numberOfExchanges}`)
+    console.log(`- Highest Sold Price: ${highestPrice}`)
+    console.log(`  ${highestPrice_link}`)
+    console.log(`- Total Sold Price: ${totalPrice}`)
     console.log('======================')
 }
